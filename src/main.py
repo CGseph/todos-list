@@ -4,6 +4,7 @@ from src.api.main import router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
+    openapi_url=f"{settings.API_VERSION_STR}/openapi.json",
     version=settings.PROJECT_VERSION,
 )
 
