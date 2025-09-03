@@ -37,6 +37,7 @@ class UsersList(SQLModel):
     users: List[UserRead]
     count: int
 
+
 # endregion
 
 
@@ -83,11 +84,20 @@ class TaskCreate(TaskBase):
 
 class TaskRead(TaskBase):
     id: uuid.UUID
+    user_id: uuid.UUID
     date_created: datetime
-    user_id: int
 
 
 class TaskUpdate(TaskBase):
     pass
 
+
+class TasksList(SQLModel):
+    count: int
+    tasks: List[TaskRead]
+
 # endregion
+
+
+class Message(SQLModel):
+    message: str

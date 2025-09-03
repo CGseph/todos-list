@@ -1,15 +1,12 @@
 from datetime import timedelta
 from typing import Annotated, Any
-
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
-
 from src import crud
 from src.api.deps import DbSession, CurrentUser
 from src.core import authorization
 from src.core.config import settings
-from src.models import Token
+from src.models import Token, UserRead
 
 router = APIRouter(tags=["login"])
 
@@ -29,7 +26,7 @@ def login_access_token(
     return Token(access_token=authorization.create_access_token(user.id, expires_delta=access_token_expires))
 
 
-@router.post("/login/test-token")
+@router.post("/login/test-token", response_model=UserRead)
 def test_token(current_user: CurrentUser) -> Any:
     """
     Test access token

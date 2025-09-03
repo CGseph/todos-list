@@ -10,6 +10,15 @@ from src import crud
 router = APIRouter(prefix="/users", tags=["users"])
 
 
+@router.get("/me",
+            response_model=UserRead)
+def read_me(current_user: CurrentUser) -> Any:
+    """
+    Get current user.
+    """
+    return current_user
+
+
 # region SuperUser endpoints
 
 @router.get("/",
@@ -58,10 +67,4 @@ def read_user(*, session: DbSession, id: uuid.UUID):
 
 # endregion
 
-@router.get("/me",
-            response_model=UserRead)
-def read_me(current_user: CurrentUser) -> Any:
-    """
-    Get current user.
-    """
-    return current_user
+
