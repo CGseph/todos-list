@@ -1,3 +1,4 @@
+import secrets
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import AnyUrl, computed_field
 from pydantic_core import MultiHostUrl
@@ -17,6 +18,9 @@ class Settings(BaseSettings):
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 2
     ENVIRONMENT: str = "dev"
+    SECRET_KEY: str = secrets.token_urlsafe(32)
+    DEFAULT_SUPERUSER: str
+    DEFAULT_SUPERUSER_PASSWORD: str
 
     # DATABASE SETTINGS
     DATABASE_URL: AnyUrl
@@ -25,6 +29,9 @@ class Settings(BaseSettings):
     POSTGRES_DB: str
     POSTGRES_PORT: int = 5432
     POSTGRES_SERVER: str
+
+    # Security
+    ALGORITHM: str = "HS256"
 
     @computed_field
     @property
